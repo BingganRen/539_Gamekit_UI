@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Components — GameKit UI</title>
+  <meta name="description" content="Browse the full GameKit UI library: health bars, XP meters, cooldowns, inventory, toasts, and stat cards." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">GK</span>
+        <span>GameKit<span class="brand-dot">.</span>UI</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">≡</button>
+      <ul id="primary-nav" class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="components.html">Components</a></li>
+        <li><a href="about.html">Guide</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section style="padding-top: 48px;">
+      <div class="container">
+        <span class="eyebrow">Component Library</span>
+        <h1>Six drop-in pieces</h1>
+        <p class="lead" style="margin-top: 16px;">
+          Every component is interactive. Try the controls, then expand the code panel
+          to copy the HTML, CSS, and JS you need.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top: 16px;">
+      <div class="container">
+        <div class="component-grid">
+
+          <!-- =========================================================
+               C1 — HEALTH BAR
+               ========================================================= -->
+          <article class="component-card" id="health-bar">
+            <header class="component-card-header">
+              <h2 class="component-title">Health Bar</h2>
+              <span class="component-tag">C-01 · HUD</span>
+            </header>
+
+            <div class="component-demo">
+              <div class="hp-bar" data-hp="100" data-hp-max="100"
+                   role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"
+                   aria-label="Player health">
+                <div class="hp-label">
+                  <span>HP</span>
+                  <span class="hp-value">100 / 100</span>
+                </div>
+                <div class="hp-track"><div class="hp-fill"></div></div>
+              </div>
+            </div>
+
+            <div class="component-controls" role="group" aria-label="Health bar controls">
+              <button class="control-btn" data-hp-action="-15" aria-controls="health-bar">Take 15 dmg</button>
+              <button class="control-btn" data-hp-action="-35" aria-controls="health-bar">Take 35 dmg</button>
+              <button class="control-btn" data-hp-action="10" aria-controls="health-bar">Heal 10</button>
+              <button class="control-btn" data-hp-reset>Reset</button>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-hp">View code</button>
+            <div class="code-wrapper" id="code-hp" hidden>
+              <div class="code-tabs" role="tablist" aria-label="Health bar code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="hp-html" id="hp-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="hp-css" id="hp-css-tab" tabindex="-1">CSS</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="hp-js" id="hp-js-tab" tabindex="-1">JS</button>
+              </div>
+
+              <div class="code-panel" id="hp-html" role="tabpanel" aria-labelledby="hp-html-tab">
+                <button class="copy-btn" data-copy-target="hp-html-code">Copy</button>
+<pre class="code-block" id="hp-html-code">&lt;div class="hp-bar" data-hp="100" data-hp-max="100"
+     role="progressbar" aria-valuemin="0" aria-valuemax="100"
+     aria-valuenow="100" aria-label="Player health"&gt;
+  &lt;div class="hp-label"&gt;
+    &lt;span&gt;HP&lt;/span&gt;
+    &lt;span class="hp-value"&gt;100 / 100&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="hp-track"&gt;&lt;div class="hp-fill"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+              </div>
+
+              <div class="code-panel" id="hp-css" role="tabpanel" aria-labelledby="hp-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="hp-css-code">Copy</button>
+<pre class="code-block" id="hp-css-code">.hp-bar { width: 280px; font-family: monospace; }
+.hp-label { display: flex; justify-content: space-between;
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.15em; margin-bottom: 8px; color: #9aa0b4; }
+.hp-label .hp-value { color: #4ade80; transition: color .3s; }
+.hp-track { position: relative; height: 14px;
+  background: #1a1d29; border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); }
+.hp-fill { height: 100%; width: 100%;
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  transition: width .4s cubic-bezier(.2,.8,.2,1), background .3s; }
+.hp-bar.mid .hp-fill { background: linear-gradient(90deg, #ffb800, #eab308); }
+.hp-bar.mid .hp-value { color: #ffb800; }
+.hp-bar.low .hp-fill { background: linear-gradient(90deg, #ff4d4d, #b91c1c);
+  animation: hp-pulse 1s infinite; }
+.hp-bar.low .hp-value { color: #ff4d4d; }
+@keyframes hp-pulse {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.4); }
+}</pre>
+              </div>
+
+              <div class="code-panel" id="hp-js" role="tabpanel" aria-labelledby="hp-js-tab" hidden>
+                <button class="copy-btn" data-copy-target="hp-js-code">Copy</button>
+<pre class="code-block" id="hp-js-code">document.querySelectorAll('[data-hp]').forEach(bar =&gt; {
+  let hp = parseInt(bar.dataset.hp, 10) || 100;
+  const max = parseInt(bar.dataset.hpMax, 10) || 100;
+  const fill = bar.querySelector('.hp-fill');
+  const value = bar.querySelector('.hp-value');
+  const render = () =&gt; {
+    const pct = Math.max(0, Math.min(100, (hp / max) * 100));
+    fill.style.width = pct + '%';
+    value.textContent = hp + ' / ' + max;
+    bar.classList.toggle('mid', pct &lt;= 50 &amp;&amp; pct &gt; 25);
+    bar.classList.toggle('low', pct &lt;= 25);
+    bar.setAttribute('aria-valuenow', hp);
+  };
+  // wire up your +/- buttons to change `hp`, then render()
+  render();
+});</pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- =========================================================
+               C2 — XP BAR
+               ========================================================= -->
+          <article class="component-card" id="xp-bar">
+            <header class="component-card-header">
+              <h2 class="component-title">XP Progress Bar</h2>
+              <span class="component-tag">C-02 · Progression</span>
+            </header>
+
+            <div class="component-demo">
+              <div class="xp-wrap" data-xp="40" data-lvl="1" data-xp-per-level="100">
+                <div class="xp-head">
+                  <div class="xp-level">LV<span class="lvl-num">1</span></div>
+                  <div class="xp-points">40 / 100 XP</div>
+                </div>
+                <div class="xp-track">
+                  <div class="xp-fill" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"
+                       aria-label="Experience progress" style="width: 40%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="component-controls" role="group" aria-label="XP controls">
+              <button class="control-btn" data-xp-action="25">+ 25 XP</button>
+              <button class="control-btn" data-xp-action="60">+ 60 XP</button>
+              <button class="control-btn" data-xp-action="120">Level up!</button>
+              <button class="control-btn" data-xp-reset>Reset</button>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-xp">View code</button>
+            <div class="code-wrapper" id="code-xp" hidden>
+              <div class="code-tabs" role="tablist" aria-label="XP bar code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="xp-html" id="xp-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="xp-css" id="xp-css-tab" tabindex="-1">CSS</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="xp-js" id="xp-js-tab" tabindex="-1">JS</button>
+              </div>
+              <div class="code-panel" id="xp-html" role="tabpanel" aria-labelledby="xp-html-tab">
+                <button class="copy-btn" data-copy-target="xp-html-code">Copy</button>
+<pre class="code-block" id="xp-html-code">&lt;div class="xp-wrap" data-xp="40" data-lvl="1" data-xp-per-level="100"&gt;
+  &lt;div class="xp-head"&gt;
+    &lt;div class="xp-level"&gt;LV&lt;span class="lvl-num"&gt;1&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="xp-points"&gt;40 / 100 XP&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="xp-track"&gt;
+    &lt;div class="xp-fill" role="progressbar"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"
+         style="width: 40%"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              </div>
+              <div class="code-panel" id="xp-css" role="tabpanel" aria-labelledby="xp-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="xp-css-code">Copy</button>
+<pre class="code-block" id="xp-css-code">.xp-wrap { width: 320px; font-family: monospace; }
+.xp-head { display: flex; justify-content: space-between;
+  align-items: baseline; margin-bottom: 8px; }
+.xp-level { font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.5rem; color: #00f0ff; letter-spacing: 0.05em; }
+.xp-level .lvl-num { text-shadow: 0 0 16px currentColor; }
+.xp-points { font-size: 0.75rem; color: #9aa0b4;
+  letter-spacing: 0.1em; }
+.xp-track { height: 8px; background: #1a1d29;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 2px; overflow: hidden; position: relative; }
+.xp-fill { height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #00f0ff);
+  box-shadow: 0 0 12px #00f0ff;
+  transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.xp-wrap.level-up .xp-level { animation: lvl-up 0.8s; }
+@keyframes lvl-up {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.3); filter: brightness(2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}</pre>
+              </div>
+              <div class="code-panel" id="xp-js" role="tabpanel" aria-labelledby="xp-js-tab" hidden>
+                <button class="copy-btn" data-copy-target="xp-js-code">Copy</button>
+<pre class="code-block" id="xp-js-code">function addXP(wrap, amount) {
+  let xp = parseInt(wrap.dataset.xp, 10);
+  let lvl = parseInt(wrap.dataset.lvl, 10);
+  const per = parseInt(wrap.dataset.xpPerLevel, 10);
+  xp += amount;
+  while (xp &gt;= per) {
+    xp -= per;
+    lvl++;
+    wrap.classList.add('level-up');
+    setTimeout(() =&gt; wrap.classList.remove('level-up'), 800);
+  }
+  wrap.dataset.xp = xp;
+  wrap.dataset.lvl = lvl;
+  wrap.querySelector('.lvl-num').textContent = lvl;
+  wrap.querySelector('.xp-points').textContent = xp + ' / ' + per + ' XP';
+  wrap.querySelector('.xp-fill').style.width = (xp / per * 100) + '%';
+}</pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- =========================================================
+               C3 — COOLDOWN
+               ========================================================= -->
+          <article class="component-card" id="cooldown">
+            <header class="component-card-header">
+              <h2 class="component-title">Skill Cooldown</h2>
+              <span class="component-tag">C-03 · Action</span>
+            </header>
+
+            <div class="component-demo">
+              <div class="cd-row">
+                <button class="cd-skill" data-cd="2" aria-label="Skill Q, 2 second cooldown">
+                  Q
+                  <span class="cd-timer" aria-live="polite"></span>
+                  <span class="cd-hint">Q</span>
+                </button>
+                <button class="cd-skill" data-cd="4" aria-label="Skill W, 4 second cooldown">
+                  W
+                  <span class="cd-timer" aria-live="polite"></span>
+                  <span class="cd-hint">W</span>
+                </button>
+                <button class="cd-skill" data-cd="6" aria-label="Skill E, 6 second cooldown">
+                  E
+                  <span class="cd-timer" aria-live="polite"></span>
+                  <span class="cd-hint">E</span>
+                </button>
+                <button class="cd-skill" data-cd="10" aria-label="Ultimate ability R, 10 second cooldown">
+                  R
+                  <span class="cd-timer" aria-live="polite"></span>
+                  <span class="cd-hint">R</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="component-controls">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.1em;">
+                Click or press Enter on a skill to trigger
+              </span>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-cd">View code</button>
+            <div class="code-wrapper" id="code-cd" hidden>
+              <div class="code-tabs" role="tablist" aria-label="Cooldown code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="cd-html" id="cd-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="cd-css" id="cd-css-tab" tabindex="-1">CSS</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="cd-js" id="cd-js-tab" tabindex="-1">JS</button>
+              </div>
+              <div class="code-panel" id="cd-html" role="tabpanel" aria-labelledby="cd-html-tab">
+                <button class="copy-btn" data-copy-target="cd-html-code">Copy</button>
+<pre class="code-block" id="cd-html-code">&lt;button class="cd-skill" data-cd="4"
+        aria-label="Skill W, 4 second cooldown"&gt;
+  W
+  &lt;span class="cd-timer" aria-live="polite"&gt;&lt;/span&gt;
+  &lt;span class="cd-hint"&gt;W&lt;/span&gt;
+&lt;/button&gt;</pre>
+              </div>
+              <div class="code-panel" id="cd-css" role="tabpanel" aria-labelledby="cd-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="cd-css-code">Copy</button>
+<pre class="code-block" id="cd-css-code">.cd-skill {
+  --cd-progress: 0deg;
+  position: relative; width: 72px; height: 72px;
+  background: #1a1d29; border: 2px solid #00f0ff;
+  border-radius: 8px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 700; color: #00f0ff;
+  cursor: pointer; overflow: hidden;
+}
+.cd-skill::before {
+  content: ""; position: absolute; inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0,0,0,.75) 0deg,
+    rgba(0,0,0,.75) var(--cd-progress),
+    transparent var(--cd-progress),
+    transparent 360deg
+  );
+  pointer-events: none;
+  transition: background 0.1s linear;
+}
+.cd-skill.cooling {
+  border-color: #5a6178; color: #5a6178; cursor: not-allowed;
+}</pre>
+              </div>
+              <div class="code-panel" id="cd-js" role="tabpanel" aria-labelledby="cd-js-tab" hidden>
+                <button class="copy-btn" data-copy-target="cd-js-code">Copy</button>
+<pre class="code-block" id="cd-js-code">document.querySelectorAll('.cd-skill').forEach(skill =&gt; {
+  const duration = parseFloat(skill.dataset.cd) || 3;
+  const timer = skill.querySelector('.cd-timer');
+  skill.addEventListener('click', () =&gt; {
+    if (skill.classList.contains('cooling')) return;
+    skill.classList.add('cooling');
+    const start = performance.now();
+    (function tick(now) {
+      const remaining = duration - (now - start) / 1000;
+      if (remaining &lt;= 0) {
+        skill.classList.remove('cooling');
+        skill.style.setProperty('--cd-progress', '0deg');
+        timer.textContent = '';
+        return;
+      }
+      skill.style.setProperty('--cd-progress',
+        (remaining / duration * 360) + 'deg');
+      timer.textContent = remaining.toFixed(1);
+      requestAnimationFrame(tick);
+    })(performance.now());
+  });
+});</pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- =========================================================
+               C4 — INVENTORY
+               ========================================================= -->
+          <article class="component-card" id="inventory">
+            <header class="component-card-header">
+              <h2 class="component-title">Inventory Grid</h2>
+              <span class="component-tag">C-04 · Storage</span>
+            </header>
+
+            <div class="component-demo">
+              <div class="inv" role="grid" aria-label="Player inventory">
+                <button class="inv-slot rare" role="gridcell" data-name="Mana Potion">
+                  🧪
+                  <span class="count">12</span>
+                  <span class="inv-tip" role="tooltip">Mana Potion · +50 MP</span>
+                </button>
+                <button class="inv-slot legendary" role="gridcell" data-name="Dragon Blade">
+                  ⚔️
+                  <span class="inv-tip" role="tooltip">Dragon Blade · Legendary</span>
+                </button>
+                <button class="inv-slot epic" role="gridcell" data-name="Shield of Kings">
+                  🛡
+                  <span class="inv-tip" role="tooltip">Shield of Kings · Epic</span>
+                </button>
+                <button class="inv-slot" role="gridcell" data-name="Health Potion">
+                  🍎
+                  <span class="count">5</span>
+                  <span class="inv-tip" role="tooltip">Health Potion · +20 HP</span>
+                </button>
+                <button class="inv-slot rare" role="gridcell" data-name="Ancient Scroll">
+                  📜
+                  <span class="inv-tip" role="tooltip">Ancient Scroll · Teleport</span>
+                </button>
+                <button class="inv-slot" role="gridcell" data-name="Gold Coin">
+                  💰
+                  <span class="count">99</span>
+                  <span class="inv-tip" role="tooltip">Gold Coin · Currency</span>
+                </button>
+                <button class="inv-slot empty" role="gridcell" aria-label="Empty slot"></button>
+                <button class="inv-slot empty" role="gridcell" aria-label="Empty slot"></button>
+              </div>
+            </div>
+
+            <div class="component-controls">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.1em;">
+                Click a slot to use · Hover/focus for tooltip
+              </span>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-inv">View code</button>
+            <div class="code-wrapper" id="code-inv" hidden>
+              <div class="code-tabs" role="tablist" aria-label="Inventory code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="inv-html" id="inv-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="inv-css" id="inv-css-tab" tabindex="-1">CSS</button>
+              </div>
+              <div class="code-panel" id="inv-html" role="tabpanel" aria-labelledby="inv-html-tab">
+                <button class="copy-btn" data-copy-target="inv-html-code">Copy</button>
+<pre class="code-block" id="inv-html-code">&lt;div class="inv" role="grid" aria-label="Player inventory"&gt;
+  &lt;button class="inv-slot rare" role="gridcell"
+          data-name="Mana Potion"&gt;
+    🧪
+    &lt;span class="count"&gt;12&lt;/span&gt;
+    &lt;span class="inv-tip" role="tooltip"&gt;Mana Potion · +50 MP&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="inv-slot legendary" role="gridcell"
+          data-name="Dragon Blade"&gt;
+    ⚔️
+    &lt;span class="inv-tip" role="tooltip"&gt;Dragon Blade · Legendary&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;!-- add more .inv-slot buttons as needed --&gt;
+  &lt;button class="inv-slot empty" role="gridcell"
+          aria-label="Empty slot"&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+              </div>
+              <div class="code-panel" id="inv-css" role="tabpanel" aria-labelledby="inv-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="inv-css-code">Copy</button>
+<pre class="code-block" id="inv-css-code">.inv { display: grid; grid-template-columns: repeat(4, 56px);
+  gap: 6px; padding: 10px; background: #1a1d29;
+  border: 1px solid rgba(255,255,255,.08); border-radius: 4px; }
+.inv-slot { width: 56px; height: 56px; background: #0d0f17;
+  border: 1px solid rgba(255,255,255,.08); position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; cursor: pointer; transition: all .15s; }
+.inv-slot:hover, .inv-slot:focus-visible {
+  border-color: #00f0ff; background: rgba(0,240,255,.08);
+  transform: scale(1.05); }
+.inv-slot.rare { border-color: #00f0ff; }
+.inv-slot.epic { border-color: #ff2975; }
+.inv-slot.legendary { border-color: #ffb800; }
+.inv-tip { position: absolute; bottom: calc(100% + 8px);
+  left: 50%; transform: translateX(-50%);
+  background: #0a0b10; border: 1px solid #00f0ff;
+  padding: 8px 12px; font-size: 0.7rem; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .15s; }
+.inv-slot:hover .inv-tip,
+.inv-slot:focus-visible .inv-tip { opacity: 1; }</pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- =========================================================
+               C5 — TOAST
+               ========================================================= -->
+          <article class="component-card" id="toast">
+            <header class="component-card-header">
+              <h2 class="component-title">Notification Toast</h2>
+              <span class="component-tag">C-05 · Feedback</span>
+            </header>
+
+            <div class="component-demo" style="min-height: 240px; position: relative;">
+              <div class="toast-stack" data-live aria-live="polite" aria-label="Notifications"></div>
+              <div style="text-align:center; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0 16px;">
+                Trigger a toast →
+              </div>
+            </div>
+
+            <div class="component-controls">
+              <button class="control-btn" data-toast-trigger="success">Success</button>
+              <button class="control-btn" data-toast-trigger="warn">Warn</button>
+              <button class="control-btn" data-toast-trigger="error">Error</button>
+              <button class="control-btn" data-toast-trigger="info">Info</button>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-toast">View code</button>
+            <div class="code-wrapper" id="code-toast" hidden>
+              <div class="code-tabs" role="tablist" aria-label="Toast code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="toast-html" id="toast-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="toast-css" id="toast-css-tab" tabindex="-1">CSS</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="toast-js" id="toast-js-tab" tabindex="-1">JS</button>
+              </div>
+              <div class="code-panel" id="toast-html" role="tabpanel" aria-labelledby="toast-html-tab">
+                <button class="copy-btn" data-copy-target="toast-html-code">Copy</button>
+<pre class="code-block" id="toast-html-code">&lt;!-- Container (fixed position in your real app) --&gt;
+&lt;div class="toast-stack" aria-live="polite"
+     aria-label="Notifications"&gt;&lt;/div&gt;
+
+&lt;!-- Toast markup (generated by JS) --&gt;
+&lt;div class="toast success" role="status"&gt;
+  &lt;div class="toast-icon"&gt;✓&lt;/div&gt;
+  &lt;div class="toast-body"&gt;
+    &lt;div class="toast-title"&gt;Quest Complete&lt;/div&gt;
+    &lt;div class="toast-msg"&gt;You earned 250 XP&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="toast-close"
+          aria-label="Dismiss"&gt;×&lt;/button&gt;
+&lt;/div&gt;</pre>
+              </div>
+              <div class="code-panel" id="toast-css" role="tabpanel" aria-labelledby="toast-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="toast-css-code">Copy</button>
+<pre class="code-block" id="toast-css-code">.toast-stack { position: fixed; top: 16px; right: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  max-width: 280px; z-index: 1000; pointer-events: none; }
+.toast { background: #0a0b10; border: 1px solid #00f0ff;
+  border-left-width: 4px; padding: 12px 16px;
+  font-family: monospace; font-size: 0.8rem; color: #e7e9f0;
+  display: flex; gap: 12px; align-items: flex-start;
+  box-shadow: 0 0 24px rgba(0,240,255,.35);
+  animation: toast-in 0.3s cubic-bezier(.2,.8,.2,1);
+  pointer-events: auto; }
+.toast.success { border-color: #4ade80; }
+.toast.warn    { border-color: #ffb800; }
+.toast.error   { border-color: #ff4d4d; }
+.toast.leaving { animation: toast-out 0.25s forwards; }
+@keyframes toast-in  { from { opacity: 0; transform: translateX(40px); }
+                       to   { opacity: 1; transform: translateX(0); } }
+@keyframes toast-out { to   { opacity: 0; transform: translateX(40px); } }</pre>
+              </div>
+              <div class="code-panel" id="toast-js" role="tabpanel" aria-labelledby="toast-js-tab" hidden>
+                <button class="copy-btn" data-copy-target="toast-js-code">Copy</button>
+<pre class="code-block" id="toast-js-code">function spawnToast(stack, { type, title, message, life = 3500 }) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.setAttribute('role', 'status');
+  el.innerHTML = `
+    &lt;div class="toast-icon"&gt;${type === 'success' ? '✓' : '⚠'}&lt;/div&gt;
+    &lt;div class="toast-body"&gt;
+      &lt;div class="toast-title"&gt;${title}&lt;/div&gt;
+      &lt;div class="toast-msg"&gt;${message}&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="toast-close" aria-label="Dismiss"&gt;×&lt;/button&gt;`;
+  const close = () =&gt; {
+    el.classList.add('leaving');
+    setTimeout(() =&gt; el.remove(), 250);
+  };
+  el.querySelector('.toast-close').addEventListener('click', close);
+  stack.appendChild(el);
+  if (life &gt; 0) setTimeout(close, life);
+}</pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- =========================================================
+               C6 — STAT CARD
+               ========================================================= -->
+          <article class="component-card" id="stat-card">
+            <header class="component-card-header">
+              <h2 class="component-title">Character Stat Card</h2>
+              <span class="component-tag">C-06 · Profile</span>
+            </header>
+
+            <div class="component-demo">
+              <div class="stat-card" role="region" aria-label="Character stats">
+                <div class="stat-head">
+                  <div class="stat-avatar" aria-hidden="true">AK</div>
+                  <div class="stat-identity">
+                    <div class="stat-name">Ankun</div>
+                    <div class="stat-class">Rank · Challenger</div>
+                  </div>
+                </div>
+                <div class="stat-grid">
+                  <div class="stat-item"><span class="label">ATK</span><span class="value">284</span></div>
+                  <div class="stat-item boost"><span class="label">DEF</span><span class="value">156</span></div>
+                  <div class="stat-item"><span class="label">HP</span><span class="value">1850</span></div>
+                  <div class="stat-item"><span class="label">MP</span><span class="value">720</span></div>
+                  <div class="stat-item boost"><span class="label">SPD</span><span class="value">92</span></div>
+                  <div class="stat-item"><span class="label">CRIT</span><span class="value">34%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="component-controls">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.1em;">
+                Pure display component · Edit values in HTML
+              </span>
+            </div>
+
+            <button class="code-toggle" aria-expanded="false" aria-controls="code-stat">View code</button>
+            <div class="code-wrapper" id="code-stat" hidden>
+              <div class="code-tabs" role="tablist" aria-label="Stat card code">
+                <button class="code-tab" role="tab" aria-selected="true" aria-controls="stat-html" id="stat-html-tab" tabindex="0">HTML</button>
+                <button class="code-tab" role="tab" aria-selected="false" aria-controls="stat-css" id="stat-css-tab" tabindex="-1">CSS</button>
+              </div>
+              <div class="code-panel" id="stat-html" role="tabpanel" aria-labelledby="stat-html-tab">
+                <button class="copy-btn" data-copy-target="stat-html-code">Copy</button>
+<pre class="code-block" id="stat-html-code">&lt;div class="stat-card" role="region" aria-label="Character stats"&gt;
+  &lt;div class="stat-head"&gt;
+    &lt;div class="stat-avatar"&gt;AK&lt;/div&gt;
+    &lt;div class="stat-identity"&gt;
+      &lt;div class="stat-name"&gt;Ankun&lt;/div&gt;
+      &lt;div class="stat-class"&gt;Rank · Challenger&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stat-grid"&gt;
+    &lt;div class="stat-item"&gt;
+      &lt;span class="label"&gt;ATK&lt;/span&gt;
+      &lt;span class="value"&gt;284&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-item boost"&gt; &lt;!-- .boost adds ↑ indicator --&gt;
+      &lt;span class="label"&gt;DEF&lt;/span&gt;
+      &lt;span class="value"&gt;156&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- add more stat-item blocks --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              </div>
+              <div class="code-panel" id="stat-css" role="tabpanel" aria-labelledby="stat-css-tab" hidden>
+                <button class="copy-btn" data-copy-target="stat-css-code">Copy</button>
+<pre class="code-block" id="stat-css-code">.stat-card { width: 300px; background: #1a1d29;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px; overflow: hidden;
+  font-family: monospace; position: relative; }
+.stat-card::before { content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #00f0ff, #ff2975); }
+.stat-head { padding: 16px; display: flex;
+  align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.08); }
+.stat-avatar { width: 48px; height: 48px;
+  background: linear-gradient(135deg, #00f0ff, #ff2975);
+  display: flex; align-items: center; justify-content: center;
+  color: #0a0b10; font-weight: 700; font-size: 1.2rem;
+  clip-path: polygon(12% 0, 88% 0, 100% 20%, 100% 80%,
+                     88% 100%, 12% 100%, 0 80%, 0 20%); }
+.stat-grid { display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: rgba(255,255,255,.08); }
+.stat-item { background: #1a1d29; padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center; }
+.stat-item .label { font-size: 0.65rem; color: #5a6178;
+  text-transform: uppercase; letter-spacing: 0.15em; }
+.stat-item .value { color: #00f0ff; font-weight: 700; font-size: 1rem; }
+.stat-item.boost .value::after { content: " ↑"; color: #4ade80; }</pre>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© <span data-year>2026</span> Ankun Bing — SI 539 W26 Final Project</span>
+      <span>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        ·
+        <a href="about.html">Guide</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage Guide — GameKit UI</title>
+  <meta name="description" content="How to install, theme, and use GameKit UI in your own game project." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">GK</span>
+        <span>GameKit<span class="brand-dot">.</span>UI</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">≡</button>
+      <ul id="primary-nav" class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="components.html">Components</a></li>
+        <li><a href="about.html">Guide</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section style="padding-top: 48px;">
+      <div class="container">
+        <span class="eyebrow">Documentation</span>
+        <h1>Usage Guide</h1>
+        <p class="lead" style="margin-top: 16px; margin-bottom: 32px;">
+          Everything you need to drop GameKit UI into your own project — setup, theming,
+          and accessibility notes.
+        </p>
+
+        <div class="content-grid">
+          <!-- Sidebar nav -->
+          <nav class="content-nav" aria-label="Section">
+            <a href="#install">Install</a>
+            <a href="#usage">Basic Usage</a>
+            <a href="#theming">Theming</a>
+            <a href="#a11y">Accessibility</a>
+            <a href="#about">About This Project</a>
+          </nav>
+
+          <div class="content-body">
+            <h3 id="install">1. Install</h3>
+            <p>
+              GameKit UI has zero dependencies. There is nothing to install. Download the
+              three core files from the <a href="components.html">component library</a>
+              and drop them into your project.
+            </p>
+<pre>your-project/
+├── index.html
+├── css/
+│   └── style.css
+└── js/
+    └── main.js</pre>
+            <p>
+              Then link them from your HTML:
+            </p>
+<pre>&lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;script src="js/main.js" defer&gt;&lt;/script&gt;</pre>
+
+            <h3 id="usage">2. Basic Usage</h3>
+            <p>
+              Every component is a plain HTML block. Copy the HTML from the component
+              library, paste it into your page, and the CSS + JS in <code>style.css</code>
+              and <code>main.js</code> will pick it up automatically.
+            </p>
+            <p>
+              Components are wired up via <code>data-</code> attributes. For example, a
+              health bar starts at full HP and reads its max from the element:
+            </p>
+<pre>&lt;div class="hp-bar" data-hp="100" data-hp-max="100"
+     role="progressbar" aria-valuemin="0" aria-valuemax="100"
+     aria-valuenow="100" aria-label="Player health"&gt;
+  ...
+&lt;/div&gt;</pre>
+            <p>
+              To drive the bar from your game code, set the data attribute and re-render,
+              or hook into the component by ID.
+            </p>
+
+            <h3 id="theming">3. Theming</h3>
+            <p>
+              Every color, font, and spacing value is a CSS custom property. Override them
+              in your own stylesheet after <code>style.css</code> loads:
+            </p>
+<pre>:root {
+  --accent: #7c3aed;          /* purple instead of cyan */
+  --accent-2: #f97316;        /* orange instead of pink */
+  --bg: #0d0d0d;              /* pure dark */
+  --font-display: "Orbitron", sans-serif;
+}</pre>
+            <p>
+              All six components will pick up the new palette. There is no theme switcher
+              built in — if you want a light theme, override the token values and the
+              components will follow.
+            </p>
+
+            <h3 id="a11y">4. Accessibility</h3>
+            <p>
+              Every component was built with these commitments in mind:
+            </p>
+            <ul>
+              <li>All interactive controls are reachable by <kbd>Tab</kbd> and activate with <kbd>Enter</kbd> or <kbd>Space</kbd>.</li>
+              <li>Progress elements (HP, XP, cooldown) expose <code>role="progressbar"</code> and live <code>aria-valuenow</code> updates.</li>
+              <li>Color is never the sole carrier of meaning — HP state also pulses and changes labels.</li>
+              <li>Focus rings use <code>:focus-visible</code> and stay clearly visible on the dark background.</li>
+              <li>All animations respect <code>prefers-reduced-motion</code>.</li>
+              <li>Toast messages use <code>aria-live="polite"</code> so screen readers announce them without interrupting.</li>
+              <li>Text and background contrast has been validated against WCAG 2.1 AA.</li>
+            </ul>
+
+            <h3 id="about">5. About This Project</h3>
+            <p>
+              GameKit UI was built as the final project for <strong>SI 539: Design of Complex
+              Websites</strong> at the University of Michigan School of Information, Winter 2026.
+              It represents roughly 20 hours of solo work across research, design, implementation,
+              and accessibility testing.
+            </p>
+            <p>
+              The goal was to practice three things at once: CSS animations (conic-gradient
+              cooldowns, linear-gradient bars, shimmer effects), vanilla JS patterns
+              (event delegation, data attributes, requestAnimationFrame), and accessibility
+              in contexts where it is often ignored — game interfaces.
+            </p>
+            <p>
+              Source and build notes are on <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© <span data-year>2026</span> Ankun Bing — SI 539 W26 Final Project</span>
+      <span>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        ·
+        <a href="components.html">Components</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
